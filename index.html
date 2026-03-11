@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Find state government RFPs (Requests for Proposals) for Children, Family, Social Services, Autism, and IDD programs across 14 states including Arizona, Texas, Georgia, and more."/>
+  <title>GovRFP Scout — Social Services & IDD Procurement Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <!-- HERO HEADER -->
+  <header class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="container">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+            <path d="M8 10h16M8 16h10M8 22h13" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="24" cy="22" r="4" fill="white" fill-opacity="0.9"/>
+            <path d="M22 22l1.5 1.5L26 20" stroke="#6C63FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C63FF"/>
+                <stop offset="1" stop-color="#3ecfcf"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">GovRFP <span class="logo-accent">Scout</span></span>
+      </div>
+
+      <h1 class="hero-title">Find Social Services<br/><span class="gradient-text">RFP Opportunities</span></h1>
+      <p class="hero-subtitle">
+        Curated Request for Proposals across <strong>14 states</strong> — focused on Children &amp; Family Services, Autism, and IDD programs.
+      </p>
+
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-pill">
+          <span class="stat-num">14</span>
+          <span class="stat-label">States</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Focus Areas</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num">100+</span>
+          <span class="stat-label">Portal Links</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH + FILTER BAR -->
+  <section class="search-section">
+    <div class="container">
+      <div class="search-bar-wrap">
+        <div class="search-input-group">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search RFPs, agencies, keywords..."
+            autocomplete="off"
+          />
+          <button class="search-clear-btn" id="searchClear" title="Clear search">✕</button>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">State</label>
+          <select id="stateFilter" class="filter-select">
+            <option value="all">All States</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <select id="categoryFilter" class="filter-select">
+            <option value="all">All Categories</option>
+            <option value="children-family">Children &amp; Family</option>
+            <option value="autism">Autism Services</option>
+            <option value="idd">IDD Services</option>
+            <option value="social-services">Social Services</option>
+            <option value="behavioral-health">Behavioral Health</option>
+          </select>
+        </div>
+
+        <button class="btn-reset" id="resetFilters">Reset</button>
+      </div>
+
+      <!-- CATEGORY PILLS -->
+      <div class="category-pills" id="categoryPills">
+        <button class="pill pill-active" data-cat="all">All</button>
+        <button class="pill" data-cat="children-family">👨‍👩‍👧 Children &amp; Family</button>
+        <button class="pill" data-cat="autism">🧩 Autism</button>
+        <button class="pill" data-cat="idd">♿ IDD</button>
+        <button class="pill" data-cat="social-services">🤝 Social Services</button>
+        <button class="pill" data-cat="behavioral-health">🧠 Behavioral Health</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="container">
+
+      <div class="results-header">
+        <p class="results-count" id="resultsCount">Loading opportunities...</p>
+        <div class="view-toggle">
+          <button class="view-btn active" id="viewGrid" title="Grid view">
+            <svg viewBox="0 0 20 20" fill="currentColor"><rect x="2" y="2" width="7" height="7" rx="1"/><rect x="11" y="2" width="7" height="7" rx="1"/><rect x="2" y="11" width="7" height="7" rx="1"/><rect x="11" y="11" width="7" height="7" rx="1"/></svg>
+          </button>
+          <button class="view-btn" id="viewList" title="List view">
+            <svg viewBox="0 0 20 20" fill="currentColor"><rect x="2" y="3" width="16" height="3" rx="1"/><rect x="2" y="9" width="16" height="3" rx="1"/><rect x="2" y="15" width="16" height="3" rx="1"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="rfp-grid" id="rfpGrid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <div class="empty-state" id="emptyState" style="display:none">
+        <div class="empty-icon">🔍</div>
+        <h3>No opportunities found</h3>
+        <p>Try adjusting your filters or search terms.</p>
+        <button class="btn-primary" id="emptyReset">Clear Filters</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- STATE PORTALS QUICK ACCESS -->
+  <section class="portals-section">
+    <div class="container">
+      <h2 class="section-title">State Procurement Portals</h2>
+      <p class="section-subtitle">Direct access to official state eProcurement systems</p>
+      <div class="portals-grid" id="portalsGrid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon logo-icon-sm">
+              <svg viewBox="0 0 32 32" fill="none">
+                <rect width="32" height="32" rx="8" fill="url(#logoGrad2)"/>
+                <path d="M8 10h16M8 16h10M8 22h13" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                <circle cx="24" cy="22" r="4" fill="white" fill-opacity="0.9"/>
+                <path d="M22 22l1.5 1.5L26 20" stroke="#6C63FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="logoGrad2" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#6C63FF"/>
+                    <stop offset="1" stop-color="#3ecfcf"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <span class="logo-text">GovRFP <span class="logo-accent">Scout</span></span>
+          </div>
+          <p class="footer-desc">Helping nonprofit and for-profit organizations find social services procurement opportunities across the United States.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Focus Areas</h4>
+          <ul>
+            <li>Children &amp; Family Services</li>
+            <li>Autism Spectrum Services</li>
+            <li>Intellectual &amp; Developmental Disabilities</li>
+            <li>Behavioral Health</li>
+            <li>Social Services</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Covered States</h4>
+          <ul>
+            <li>Arizona · Alabama</li>
+            <li>Connecticut · Georgia</li>
+            <li>Indiana · Maryland</li>
+            <li>Massachusetts · New Jersey</li>
+            <li>North Carolina · North Dakota</li>
+            <li>Ohio · Pennsylvania</li>
+            <li>South Carolina · Texas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <p>© 2026 GovRFP Scout · Links open official government websites · Not affiliated with any state agency</p>
+        <p class="footer-update">Last data refresh: <span id="lastUpdate"></span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- RFP DETAIL MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="rfpModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-badge" id="modalBadge"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-meta" id="modalMeta"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-tags" id="modalTags"></div>
+      <div class="modal-actions">
+        <a class="btn-primary" id="modalPortalLink" href="#" target="_blank" rel="noopener noreferrer">
+          View on State Portal →
+        </a>
+        <a class="btn-secondary" id="modalAgencyLink" href="#" target="_blank" rel="noopener noreferrer">
+          Agency Website →
+        </a>
+      </div>
+      <div class="modal-note">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+        Always verify current deadlines on the official state portal. RFP data is updated frequently.
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
